@@ -116,6 +116,15 @@ int main() {
         ball.Update();
         player.Update();
         cpu.Update(ball.y);
+
+        if (CheckCollisionCircleRec(Vector2{ball.x,ball.y}, ball.radius, Rectangle{player.x,player.y,player.width,player.height})) {
+            ball.speed_x *= -1;
+        }
+
+        if (CheckCollisionCircleRec(Vector2{ball.x,ball.y}, ball.radius, Rectangle{cpu.x,cpu.y,cpu.width,cpu.height})) {
+            ball.speed_x *= -1;
+        }
+
         //drawing
         ClearBackground(BLACK);
         DrawLine(width/2,0,width/2,height,WHITE);
