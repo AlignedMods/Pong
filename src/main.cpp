@@ -63,7 +63,7 @@ class Paddle {
     int speed;
 
     void Draw() {
-        DrawRectangle(x, y, width, height, WHITE);
+        DrawRectangleRounded(Rectangle{x, y, width, height}, 0.8, 0, WHITE);
     }
 
     void Update() {
@@ -120,13 +120,13 @@ int main() {
 
     player.width = 25;
     player.height = 120;
-    player.x = 0;
+    player.x = 10;
     player.y = height / 2 - player.height / 2;
     player.speed = 6;
 
     cpu.width = 25;
     cpu.height = 120;
-    cpu.x = width - cpu.width;
+    cpu.x = width - cpu.width - 10;
     cpu.y = height / 2 - player.height / 2;
     cpu.speed = 6;
 
