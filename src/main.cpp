@@ -1,6 +1,14 @@
 #include <iostream>
 #include <raylib.h>
 
+Color green = Color{38, 185, 154, 255};
+Color dark_Green = Color{20, 160, 133, 255};
+Color light_Green = Color{129, 204, 184, 255};
+Color yellow = Color{243, 213, 91, 255};
+
+int player_score = 0;
+int cpu_score = 0;
+
 class Ball {
 
     public:
@@ -9,7 +17,7 @@ class Ball {
     int radius;
 
     void Draw() {
-        DrawCircle(x,y,radius,WHITE);
+        DrawCircle(x,y,radius,yellow);
     }
 
     void Update() {
@@ -22,11 +30,27 @@ class Ball {
 
         }
 
-        if(x + radius >= GetScreenWidth()||x - radius <= 0) {
-
-            speed_x *= -1;
-
+        if(x + radius >= GetScreenWidth())
+        {
+            cpu_score ++;
+            ResetBall();
         }
+        
+        if (x - radius <= 0) 
+        {
+            player_score ++;
+            ResetBall();
+        }
+    }
+
+    void ResetBall() {
+        x = GetScreenWidth()/2;
+        y = GetScreenHeight()/2;
+
+        int speed_choices[2] = {-1,1};
+
+        speed_x *= speed_choices[GetRandomValue(0,1)];
+        speed_y *= speed_choices[GetRandomValue(0,1)];
     }
 
 };
@@ -102,7 +126,7 @@ int main() {
 
     cpu.width = 25;
     cpu.height = 120;
-    cpu.x = width - cpu.width - 10;
+    cpu.x = width - cpu.width;
     cpu.y = height / 2 - player.height / 2;
     cpu.speed = 6;
 
@@ -126,11 +150,15 @@ int main() {
         }
 
         //drawing
-        ClearBackground(BLACK);
+        ClearBackground(dark_Green);
+        DrawRectangle(width/2, 0, width/2, height, green);
+        DrawCircle(width/2, height/2, 50, light_Green);
         DrawLine(width/2,0,width/2,height,WHITE);
         ball.Draw();
         cpu.Draw();
         player.Draw();
+        DrawText(TextFormat("%i",cpu_score), width/4 - 20, 20, 80, WHITE);
+        DrawText(TextFormat("%i",player_score), 3*width/4 - 20, 20, 80, WHITE);
 
         EndDrawing();
     }
