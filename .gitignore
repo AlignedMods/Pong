@@ -1,3 +1,5 @@
 *.exe
 *.dsym
 Release/
+Pong/
+Pong.zip
