@@ -1,4 +1,6 @@
 #include <iostream>
+#include <fstream>
+#include <string>
 #include <raylib.h>
 
 Color green = Color{38, 185, 154, 255};
@@ -135,6 +137,7 @@ int main() {
 
     while(WindowShouldClose() == !true)
     {
+
         BeginDrawing();
         //updating the ball
         ball.Update();
